@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller {
 
             $this->load->model('Authmin_model');
             if (!$this->session->userdata('loggedin')) {
-            	redirect('admin/Auth/login');
+            	redirect('Home/login');
             }
         }
 
@@ -18,38 +18,38 @@ class Dashboard extends CI_Controller {
 			'topmenu' => $this->Authmin_model->getTopMenu(),
 			'title' => 'Baleni Dashboard',
 			'total' => $this->Authmin_model->getTotalOrderMenu());
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/dashboard',$dataload);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('dashboard',$dataload);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function myprofile() {
 		$data['title'] = 'My Profile';
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/profil');
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('profil');
+		$this->load->view('headfoot/footer');
 	}
 
 	public function manageAdmin() {
 		$data['title'] = 'Manage Admin';
 		$dataadmin = array(
 			'admin'=> $this->Authmin_model->getAllData('admin', 'lastLogin', 'DESC'));
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/listadmin', $dataadmin);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('listadmin', $dataadmin);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function manageUser() {
 		$data['title'] = 'Manage User';
 		$datauser = array(
 			'user'=> $this->Authmin_model->getAllData('user', 'lastLogin', 'DESC'));
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/listuser', $datauser);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('listuser', $datauser);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function category() {
@@ -57,10 +57,10 @@ class Dashboard extends CI_Controller {
 		$datacategory = array(
 			'kategori' => $this->Authmin_model->getAllData('kategori', 'namaKategori', 'ASC'),
 			'title' => 'Manage Category');
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/category', $datacategory);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('category', $datacategory);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function addMenu() {
@@ -68,10 +68,10 @@ class Dashboard extends CI_Controller {
 		$datacategory = array(
 			'namakategori' => $this->Authmin_model->getAllData('kategori','namaKategori', 'ASC'),
 			'title' => 'Add Menu');
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/addMenu', $datacategory);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('addMenu', $datacategory);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function insertMenu() {
@@ -102,14 +102,14 @@ class Dashboard extends CI_Controller {
 			$insert = $this->Authmin_model->InsertData('menu', $datainsert);
 			if($insert) {
 				$this->session->set_flashdata('success', ' '. $nama . " berhasil ditambahkan ke menu.");
-				redirect('admin/Dashboard/addMenu');
+				redirect('Dashboard/addMenu');
 			} else {
 				$this->session->set_flashdata('error','Menu gagal ditambahkan, cek kode makanan.');
-				redirect('admin/Dashboard/addMenu');
+				redirect('Dashboard/addMenu');
 			}
 		} else {
 				$this->session->set_flashdata('error','Gagal upload Gambar. Maksimal gambar adalah 2MB');
-				redirect('admin/Dashboard/addMenu');
+				redirect('Dashboard/addMenu');
 		}
 	}
 
@@ -119,31 +119,31 @@ class Dashboard extends CI_Controller {
 		$hasil = $this->Authmin_model->InsertData('kategori', $datainsert);
 		if($hasil) {
 			$this->session->set_flashdata('success','Kategori ' . $newcategory . " berhasil ditambahkan.");
-			redirect('admin/Dashboard/category');
+			redirect('Dashboard/category');
 		} else {
 			$this->session->set_flashdata('error','Kategori gagal ditambahkan!');
-			redirect('admin/Dashboard/category');
+			redirect('Dashboard/category');
 		}
 	}
 
 	public function deleteCategory($id) {
 		$this->Authmin_model->deleteData('kategori', 'id', $id);
 		$this->session->set_flashdata('success','Kategori berhasil Dihapus.');
-			redirect('admin/Dashboard/category');
+			redirect('Dashboard/category');
 	}
 
 	public function addAdmin() {
 		$data['title'] = 'Add Admin';
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/addAdmin');
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('addAdmin');
+		$this->load->view('headfoot/footer');
 	}
 
 	public function insertAdmin() {
 		$email = htmlspecialchars($this->input->post('emailnewadmin'));
 		$password = htmlspecialchars($this->input->post('passwordnewadmin'));
-		$passenc = md5("m@120maH5An~7@mv4N" . $password . "5uKs3ZzZk4PepE3le@~~");
+		$passenc = $password;
 		$name = htmlspecialchars($this->input->post('namenewadmin'));
 		$role = $this->input->post('rolenewadmin');
 
@@ -156,27 +156,27 @@ class Dashboard extends CI_Controller {
 		$hasil = $this->Authmin_model->InsertData('admin', $datainsert);
 		if($hasil) {
 			$this->session->set_flashdata('success','Admin ' . $email . " berhasil ditambahkan.");
-			redirect('admin/Dashboard/addAdmin');
+			redirect('Dashboard/addAdmin');
 		} else {
 			$this->session->set_flashdata('error','Admin gagal ditambahkan. Email sudah digunakan!');
-			redirect('admin/Dashboard/addAdmin');
+			redirect('Dashboard/addAdmin');
 		}
 	}
 
 	public function deleteadmin($id) {
 		$this->Authmin_model->deleteData('admin', 'id', $id);
 		$this->session->set_flashdata('success','Admin berhasil Dihapus.');
-			redirect('admin/Dashboard/manageAdmin');
+			redirect('Dashboard/manageAdmin');
 	}
 
 	public function manageMenu() {
 		$data['title'] = 'Manage Menu';
 		$datamenu = array(
 			'menu' => $this->Authmin_model->getAllData('menu', 'nama', 'ASC'));
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/listMenu', $datamenu);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('listMenu', $datamenu);
+		$this->load->view('headfoot/footer');
 	}
 
 		public function deleteMenu($kode) {
@@ -192,10 +192,10 @@ class Dashboard extends CI_Controller {
 			'kategoripil' => $this->Authmin_model->getData('kategori'),
 			'barang' => $this->Authmin_model->getSelData('menu', 'kode', $kode),
 			'title' => 'Edit Menu');
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/editMenu', $dataSelMenu);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('editMenu', $dataSelMenu);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function updateMenu() {
@@ -227,7 +227,7 @@ class Dashboard extends CI_Controller {
 			redirect('admin/Dashboard/addMenu');
 		} else {
 				$this->session->set_flashdata('error','Gagal upload Gambar. Maksimal gambar adalah 2MB');
-				redirect('admin/Dashboard/addMenu');
+				redirect('Dashboard/addMenu');
 		}
 	}
 
@@ -236,10 +236,10 @@ class Dashboard extends CI_Controller {
 		$dataorder = array(
 			'orderan' => $this->Authmin_model->getorder(),
 			'title' => 'Manage Order');
-		$this->load->view('admin/headfoot/sider',$data);
-		$this->load->view('admin/headfoot/header');
-		$this->load->view('admin/listorder', $dataorder);
-		$this->load->view('admin/headfoot/footer');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('listorder', $dataorder);
+		$this->load->view('headfoot/footer');
 	}
 
 	public function orderdetilinfo($id) {

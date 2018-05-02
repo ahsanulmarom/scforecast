@@ -26,10 +26,10 @@
           <strong>Waduh!</strong> '.$error.'
           </div>';
         } ?>        
-        <form action='<?php echo base_url()?>admin/Auth/loginadmin' method='POST'>
+        <form action='<?php echo base_url()?>Home/loginadmin' method='POST'>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input class="form-control" type="email" aria-describedby="emailHelp" placeholder="Enter email" name="usernameAdmin" id="email">
+            <label for="exampleInputEmail1">Username</label>
+            <input class="form-control" type="text" aria-describedby="emailHelp" placeholder="Enter username" name="usernameAdmin" id="email">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
