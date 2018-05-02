@@ -27,16 +27,15 @@ class Home extends CI_Controller {
 			$loginadminData = array(
 				'id' => $isLogin[0]->id,
 				'username' => $isLogin[0]->username,
-				'name' => $isLogin[0]->adminName,
-				'role' => $isLogin[0]->role,
-				'created' => $isLogin[0]->timeCreated,
+				'name' => $isLogin[0]->namaAdmin,
+				'created' => $isLogin[0]->createdDate,
 				'time' => $isLogin[0]->lastLogin);
 			$this->session->set_userdata('loggedin', $loginadminData);
 			$timeLogin = array('lastLogin' => $this->Authmin_model->now());
 			$this->Authmin_model->updateData('id', $isLogin[0]->id, 'admin', $timeLogin);
 			$this->index();
 		} else {
-			$data['title'] = 'Baleni Admin Portal';
+			$data['title'] = 'Ihtiar Jaya Forecasting Admin Portal';
 			$data['error'] = 'Email dan Password salah!';
 			$this->load->view('login', $data);
 		}
@@ -49,7 +48,7 @@ class Home extends CI_Controller {
 	}
 
 	public function login() {
-		$data['title'] = 'Baleni Admin Portal';
+		$data['title'] = 'Ihtiar Jaya Forecasting Admin Portal';
 		if($this->session->userdata('loggedin')) {
 			redirect('Dashboard');
 		} else {

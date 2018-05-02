@@ -13,10 +13,10 @@ class Dashboard extends CI_Controller {
         }
 
 	public function index() {
-		$data['title'] = 'Baleni Dashboard';
+		$data['title'] = 'Ihtiar Jaya Forecasting';
 		$dataload = array(
 			'topmenu' => $this->Authmin_model->getTopMenu(),
-			'title' => 'Baleni Dashboard',
+			'title' => 'Ihtiar Jaya Forecasting',
 			'total' => $this->Authmin_model->getTotalOrderMenu());
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');

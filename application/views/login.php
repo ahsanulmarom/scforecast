@@ -19,7 +19,7 @@
 <body class="bg-dark">
   <div class="container">
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Admin Login</div>
+      <div class="card-header">Ihtiar Jaya Forecasting Admin Login</div>
       <div class="card-body">
         <?php if (isset($error)) {
           echo '<div class="alert alert-danger waduh">
