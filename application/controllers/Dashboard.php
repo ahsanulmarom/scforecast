@@ -13,14 +13,10 @@ class Dashboard extends CI_Controller {
         }
 
 	public function index() {
-		$data['title'] = 'Ihtiar Jaya Forecasting';
-		$dataload = array(
-			'topmenu' => $this->Authmin_model->getTopMenu(),
-			'title' => 'Ihtiar Jaya Forecasting',
-			'total' => $this->Authmin_model->getTotalOrderMenu());
+		$data['title'] = 'Ihtiar Jaya SC Page';
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
-		$this->load->view('dashboard',$dataload);
+		$this->load->view('dashboard',$data);
 		$this->load->view('headfoot/footer');
 	}
 

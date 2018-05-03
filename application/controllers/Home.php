@@ -28,20 +28,17 @@ class Home extends CI_Controller {
 				'id' => $isLogin[0]->id,
 				'username' => $isLogin[0]->username,
 				'name' => $isLogin[0]->namaAdmin,
-				'created' => $isLogin[0]->createdDate,
-				'time' => $isLogin[0]->lastLogin);
+				'created' => $isLogin[0]->createdDate);
 			$this->session->set_userdata('loggedin', $loginadminData);
-			$timeLogin = array('lastLogin' => $this->Authmin_model->now());
-			$this->Authmin_model->updateData('id', $isLogin[0]->id, 'admin', $timeLogin);
 			$this->index();
 		} else {
-			$data['title'] = 'Ihtiar Jaya Forecasting Admin Portal';
+			$data['title'] = 'Ihtiar Jaya SC Page';
 			$data['error'] = 'Email dan Password salah!';
 			$this->load->view('login', $data);
 		}
 	}
 
-	public function logoutadmin() {
+	public function logout() {
 		$this->session->unset_userdata('loggedin');
 		$this->session->sess_destroy();
 		$this->index();
