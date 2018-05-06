@@ -2,7 +2,7 @@
         <li class="nav-item dropdown">
         
         <li class="nav-item">
-           <a href="<?php echo base_url()?>admin/Dashboard/myprofile" class="nav-link"> Hi, <?php echo $this->session->userdata('loggedin')['name']?> </a>
+           <a href="<?php echo base_url()?>Dashboard/myprofile" class="nav-link"> Hi, <?php echo $this->session->userdata('loggedin')['name']?> </a>
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url()?>Home/logout" class="nav-link">

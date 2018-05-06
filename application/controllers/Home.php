@@ -56,9 +56,9 @@ class Home extends CI_Controller {
 	public function ubahpass($username) {
 		$this->form_validation->set_rules('npassword','New Password','required|matches[cpassword]|min_length[5]');
 		$this->form_validation->set_rules('cpassword','Confirm Password','required');
-		$opass = md5("m@120maH5An~7@mv4N" . $this->input->post('opassword') . "5uKs3ZzZk4PepE3le@~~");
-		$npass = md5("m@120maH5An~7@mv4N" . $this->input->post('npassword') . "5uKs3ZzZk4PepE3le@~~");
-		$cpass = md5("m@120maH5An~7@mv4N" . $this->input->post('cpassword') . "5uKs3ZzZk4PepE3le@~~");
+		$opass = $this->input->post('opassword');
+		$npass = $this->input->post('npassword');
+		$cpass = $this->input->post('cpassword');
 		$data['password'] = $npass;
 
 		$do = $this->Authmin_model->getColomn($username);

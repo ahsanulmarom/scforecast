@@ -1,4 +1,6 @@
      <!-- Icon Cards-->
+     <h1>Ini isi apa ya saya bingung</h1>
+     <!--
        <div class="row">
 
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -171,6 +173,7 @@
              </div>
       </div>
     </div>
+  -->
 
 
     <footer class="sticky-footer">
