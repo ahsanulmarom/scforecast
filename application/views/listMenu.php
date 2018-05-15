@@ -1,7 +1,7 @@
 <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i>   List of Menu</div>
+          <i class="fa fa-table"></i>   Forecast</div>
         <div class="card-body">
           <div class="table-responsive">
             <?php
@@ -14,8 +14,8 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Image</th>
-                  <th>Name</th>
+                  <th>Nomor</th>
+                  <th></th>
                   <th>Category</th>
                   <th>Price</th>
                   <th>Action</th>

@@ -33,54 +33,27 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Order">
-          <a class="nav-link" href="<?php echo base_url()?>admin/Dashboard/manageorders">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Order">
+          <a class="nav-link" href="<?php echo base_url()?>Dashboard/forecast">
             <i class="fa fa-fw fa-list"></i>
-            <span class="nav-link-text">Master Data</span>
+            <span class="nav-link-text">Forecast Now!!!</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Menu">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-coffee"></i>
-            <span class="nav-link-text">Peramalan Produksi</span>
+            <span class="nav-link-text">Production Forecast</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
             <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/category">kategori 1</a>
+              <a href="<?php echo base_url()?>Dashboard/highDemandForecast">High Demand</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/addMenu">Kategori 2</a>
+              <a href="<?php echo base_url()?>Dashboard/mediumDemandForecast">Medium Demand</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/managemenu">Kategori 3</a>
+              <a href="<?php echo base_url()?>Dashboard/lowDemandForecast">Low Demand</a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Order">
-          <a class="nav-link" href="<?php echo base_url()?>admin/Dashboard/manageorders">
-            <i class="fa fa-fw fa-list"></i>
-            <span class="nav-link-text">Ini apa lagi ya</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage User">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
-            <span class="nav-link-text">Ehehe</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-            <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/manageUser">Ehehe Lagi</a>
-            </li>
-            <!--
-            <?php if($this->session->userdata('loggedin')['role'] == 1) {?>
-            <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/addAdmin">Add Admin</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url()?>admin/Dashboard/manageAdmin">Manage Admin</a>
-            </li>
-            <?php } ?>
-          -->
           </ul>
         </li>
       </ul>

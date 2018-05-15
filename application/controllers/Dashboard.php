@@ -28,35 +28,96 @@ class Dashboard extends CI_Controller {
 		$this->load->view('headfoot/footer');
 	}
 
-	public function manageAdmin() {
-		$data['title'] = 'Manage Admin';
-		$dataadmin = array(
-			'admin'=> $this->Authmin_model->getAllData('admin', 'lastLogin', 'DESC'));
+	public function forecast() {
+		$data['title'] = 'Forecast Now!!!';
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
-		$this->load->view('listadmin', $dataadmin);
+		$this->load->view('forecast');
 		$this->load->view('headfoot/footer');
 	}
 
-	public function manageUser() {
-		$data['title'] = 'Manage User';
-		$datauser = array(
-			'user'=> $this->Authmin_model->getAllData('user', 'lastLogin', 'DESC'));
+	public function highDemandForecast() {
+		$data['title'] = 'High Demand Forecast';
+		$dataforecast = array(
+			'demand' => $this->Authmin_model->getDemandForecast('forecast', 1, 'id', 'ASC'),
+			'barang' => 'Kursi Tamu, Dipan, dan Lemari',
+			'title' => 'High Demand Forecast');
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
-		$this->load->view('listuser', $datauser);
+		$this->load->view('forecasttabel', $dataforecast);
 		$this->load->view('headfoot/footer');
 	}
 
-	public function category() {
-		$data['title'] = 'Manage Category';
-		$datacategory = array(
-			'kategori' => $this->Authmin_model->getAllData('kategori', 'namaKategori', 'ASC'),
-			'title' => 'Manage Category');
+	public function mediumDemandForecast() {
+		$data['title'] = 'Medium Demand Forecast';
+		$dataforecast = array(
+			'demand' => $this->Authmin_model->getDemandForecast('forecast', 2, 'id', 'ASC'),
+			'barang' => 'Bufet, Lemari Pakaian',
+			'title' => 'Medium Demand Forecast');
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
-		$this->load->view('category', $datacategory);
+		$this->load->view('forecasttabel', $dataforecast);
 		$this->load->view('headfoot/footer');
+	}
+
+	public function lowDemandForecast() {
+		$data['title'] = 'Low Demand Forecast';
+		$dataforecast = array(
+			'demand' => $this->Authmin_model->getDemandForecast('forecast', 3, 'id', 'ASC'),
+			'barang' => 'Nakas, Meja Rias, Meja Makan, dan Sofa',
+			'title' => 'Low Demand Forecast');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('forecasttabel', $dataforecast);
+		$this->load->view('headfoot/footer');
+	}
+
+	public function forecastnow() {
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		$demand = $this->input->post('demand');
+		$alpha = $this->input->post('alpha');
+		$tipe = $this->input->post('tipe');
+		$bulan0 = 0;
+		$hasil = 0;
+		$dataupdate['demand'] = $demand;
+
+		if($bulan == 1) {
+			$bulan0 = 12;
+			$tahun = $tahun-1;
+		} else {
+			$bulan0 = $bulan-1;
+		}
+
+		$update = $this->Authmin_model->updateData3('bulan', $bulan0, 'tahun', $tahun, 'type', $tipe, 'forecast', $dataupdate);
+		
+			$lastforecast = $this->Authmin_model->getlastforecast($bulan0, $tahun, $tipe)['forecast'];
+			if ($lastforecast) {
+				$hasil = $lsvalue + $alpha * ($demand - $lsvalue);
+				$datainsert = array(
+					'bulan' => $bulan,
+					'tahun' => $tahun,
+					'alfa' => $alpha,
+					'forecast' => $hasil,
+					'type' => $tipe);
+				$insert = $this->Authmin_model->insertData('forecast', $datainsert);
+				if ($insert) {
+					$this->session->set_flashdata('success', 'Forecast berhasil dilakukan');
+					if ($tipe == 1) {
+						redirect('Dashboard/highDemandForecast');
+					} else if ($tipe == 2) {
+						redirect('Dashboard/mediumDemandForecast');
+					} else if ($tipe == 3) {
+						redirect('Dashboard/lowDemandForecast');
+					}
+				} else {
+					$this->session->set_flashdata('error','Gagal insert. Cek isian anda.');
+					redirect('Dashboard/forecast');
+				}
+			} else {
+					$this->session->set_flashdata('error','Gagal ambil data terakhir');
+					redirect('Dashboard/forecast');
+			}
 	}
 
 	public function addMenu() {
