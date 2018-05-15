@@ -51,7 +51,7 @@ class Authmin_model extends CI_Model {
 	}
 
 	public function getlastforecast($bulan, $tahun, $type) {
-		$this->db->select('forecast.forecast');
+		$this->db->select('*');
 		$this->db->from('forecast');
 		$this->db->where('bulan', $bulan);
 		$this->db->where('tahun', $tahun);

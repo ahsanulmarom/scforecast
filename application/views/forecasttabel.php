@@ -19,7 +19,7 @@
                   <th><center>Bulan</center></th>
                   <th><center>Actual Demand</center></th>
                   <th><center>α</center></th>
-                  <th><center>Forecast</center></th>
+                  <th><center>Production Forecast</center></th>
                 </tr>
               </thead>
               <tbody>

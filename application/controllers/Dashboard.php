@@ -91,9 +91,10 @@ class Dashboard extends CI_Controller {
 
 		$update = $this->Authmin_model->updateData3('bulan', $bulan0, 'tahun', $tahun, 'type', $tipe, 'forecast', $dataupdate);
 		
-			$lastforecast = $this->Authmin_model->getlastforecast($bulan0, $tahun, $tipe)['forecast'];
+			$lastforecast = $this->Authmin_model->getlastforecast($bulan0, $tahun, $tipe);
+			$lsvalue = $lastforecast[0]->forecast;
 			if ($lastforecast) {
-				$hasil = $lsvalue + $alpha * ($demand - $lsvalue);
+				$hasil = $lsvalue+($alpha*($demand - $lsvalue));
 				$datainsert = array(
 					'bulan' => $bulan,
 					'tahun' => $tahun,
@@ -102,7 +103,7 @@ class Dashboard extends CI_Controller {
 					'type' => $tipe);
 				$insert = $this->Authmin_model->insertData('forecast', $datainsert);
 				if ($insert) {
-					$this->session->set_flashdata('success', 'Forecast berhasil dilakukan');
+					$this->session->set_flashdata('success', 'Forecast berhasil dilakukan ');
 					if ($tipe == 1) {
 						redirect('Dashboard/highDemandForecast');
 					} else if ($tipe == 2) {
