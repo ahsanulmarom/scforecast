@@ -89,8 +89,12 @@ class Dashboard extends CI_Controller {
 			$bulan0 = $bulan-1;
 		}
 
+		if ($this->Authmin_model->getlastforecast($bulan, $tahun, $tipe)) {
+			$this->session->set_flashdata('error','Forecast Gagal. Data Sudah Ada.');
+			redirect('Dashboard/forecast');
+		} else {
 		$update = $this->Authmin_model->updateData3('bulan', $bulan0, 'tahun', $tahun, 'type', $tipe, 'forecast', $dataupdate);
-		
+
 			$lastforecast = $this->Authmin_model->getlastforecast($bulan0, $tahun, $tipe);
 			$lsvalue = $lastforecast[0]->forecast;
 			if ($lastforecast) {
@@ -116,9 +120,10 @@ class Dashboard extends CI_Controller {
 					redirect('Dashboard/forecast');
 				}
 			} else {
-					$this->session->set_flashdata('error','Gagal ambil data terakhir');
+					$this->session->set_flashdata('error','Forecast Gagal. Forecast bulan sebelumnya belum dimasukkan.');
 					redirect('Dashboard/forecast');
 			}
+		}
 	}
 
 	public function addMenu() {
