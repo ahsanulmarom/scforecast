@@ -35,7 +35,47 @@ class Authmin_model extends CI_Model {
 		}
 	}
 
+	public function getsumforecast($bulan, $tahun) {
+		$this->db->select('sum(forecast) as jumlah');
+		$this->db->from('forecast');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+		else{
+			return false;
+		}
+	}
 
+	public function agregatcek($bulan, $tahun) {
+		$this->db->select('*');
+		$this->db->from('agregat');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getdatapegawai() {
+		$this->db->select('*');
+		$this->db->from('agregat');
+		$this->db->order_by('id');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public function getDemandForecast($namaTabel, $syarat, $urut, $asc) {
 		$this->db->select('*');
 		$this->db->from($namaTabel);
@@ -85,6 +125,12 @@ class Authmin_model extends CI_Model {
 
 	public function updateData($where, $wheredata, $namaTabel, $data) {
 		$this->db->where($where, $wheredata);
+		$this->db->update($namaTabel, $data);
+	}
+
+	public function updateData2($where1, $wheredata1, $where2, $wheredata2, $namaTabel, $data) {
+		$this->db->where($where1, $wheredata1);
+		$this->db->where($where2, $wheredata2);
 		$this->db->update($namaTabel, $data);
 	}
 

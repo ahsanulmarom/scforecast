@@ -33,13 +33,13 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Order">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forecast Now!!!">
           <a class="nav-link" href="<?php echo base_url()?>Dashboard/forecast">
             <i class="fa fa-fw fa-list"></i>
             <span class="nav-link-text">Forecast Now!!!</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Menu">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Production Forecast">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-coffee"></i>
             <span class="nav-link-text">Production Forecast</span>
@@ -55,6 +55,12 @@
               <a href="<?php echo base_url()?>Dashboard/lowDemandForecast">Low Demand</a>
             </li>
           </ul>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Jumlah Pegawai">
+          <a class="nav-link" href="<?php echo base_url()?>Dashboard/jumlahpegawai">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Jumlah Pegawai</span>
+          </a>
         </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">

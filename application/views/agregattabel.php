@@ -11,21 +11,21 @@
                 <strong>Success!</strong> '.$this->session->flashdata('success').'.
               </div>';
             } ?>
-            * Jenis barang: <?php echo $barang; ?> </br>
+            * Rata-rata waktu produksi per barang : <?php echo $pegawai[0]['hprod']; ?> jam/barang</br>
+            * Rata-rata jam kerja pegawai per bulan : <?php echo $pegawai[0]['hpekerja']; ?>  jam/bulan</br>
           </br>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th><center>Bulan</center></th>
-                  <th><center>Actual Demand</center></th>
-                  <th><center>α</center></th>
-                  <th><center>Production Forecast</center></th>
+                  <th><center>Total Forecast</center></th>
+                  <th><center>Forecast Jumlah Pekerja</center></th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                if(!empty($demand)) {
-                  foreach ($demand as $d) { ?>
+                if(!empty($pegawai)) {
+                  foreach ($pegawai as $d) { ?>
                 <tr>
                   <td><?php 
                   if($d['bulan'] == 1) {
@@ -54,9 +54,8 @@
                     echo "Desember " . $d['tahun'];
                   }
                   ?></td>
-                  <td><?php echo $d['demand']; ?></td>
-                  <td><?php echo $d['alfa']; ?></td>
-                  <td><?php echo $d['forecast']; ?></td>
+                  <td><?php echo $d['forecasting']; ?></td>
+                  <td><?php echo $d['npekerja']; ?> orang</td>
                 </tr>
                 <?php }
               }?>

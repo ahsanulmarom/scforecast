@@ -72,6 +72,17 @@ class Dashboard extends CI_Controller {
 		$this->load->view('headfoot/footer');
 	}
 
+	public function jumlahpegawai() {
+		$data['title'] = 'Forecast Jumlah Pegawai';
+		$dataagregat = array(
+			'pegawai' => $this->Authmin_model->getdatapegawai(),
+			'title' => 'Forecast Jumlah Pegawai');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('agregattabel', $dataagregat);
+		$this->load->view('headfoot/footer');
+	}
+
 	public function forecastnow() {
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');
@@ -106,6 +117,21 @@ class Dashboard extends CI_Controller {
 					'forecast' => $hasil,
 					'type' => $tipe);
 				$insert = $this->Authmin_model->insertData('forecast', $datainsert);
+
+				$sumforecast = $this->Authmin_model->getsumforecast($bulan, $tahun);
+				$cekagregat = $this->Authmin_model->agregatcek($bulan, $tahun);
+				
+				if ($cekagregat) {
+					$dataupdateagregat['forecasting'] = $sumforecast[0]->jumlah;
+					$updateagregat = $this->Authmin_model->updateData2('bulan', $bulan, 'tahun', $tahun, 'agregat', $dataupdateagregat);
+				} else {
+					$datainsertagregat = array(
+						'bulan' => $bulan,
+						'tahun' => $tahun,
+						'forecasting' => $sumforecast[0]->jumlah);
+					$insertagregat = $this->Authmin_model->insertData('agregat', $datainsertagregat);
+				}
+
 				if ($insert) {
 					$this->session->set_flashdata('success', 'Forecast berhasil dilakukan ');
 					if ($tipe == 1) {

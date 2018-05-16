@@ -30,7 +30,7 @@
                     <option value="11">November</option>
                     <option value="12">Desember</option>
                   </select>
-                  <input type="number" name="tahun" placeholder="Isi Tahun" value="2018" required/>
+                  <input type="number" name="tahun" placeholder="Isi Tahun" value="2017" required/>
                             </td>
                           </tr>
                           <tr>
@@ -44,11 +44,11 @@
                            <tr>
                             <td style="padding: 5px">Tipe</td>
                             <td style="padding: 5px">
-                                                <select name="tipe">
-                    <option value="1">High Demand (Kursi Tamu, Dipan, Lemari)</option>
-                    <option value="2">Medium Demand (Bufet, Lemari Pakaian)</option>
-                    <option value="3">Low Demand (Nakas, Meja Rias, Meja Makan, Sofa)</option>
-                  </select></td>
+                              <select name="tipe">
+                                <option value="1">High Demand (Kursi Tamu, Dipan, Lemari)</option>
+                                <option value="2">Medium Demand (Bufet, Lemari Pakaian)</option>
+                                <option value="3">Low Demand (Nakas, Meja Rias, Meja Makan, Sofa)</option>
+                              </select></td>
                           </tr>
                           <tr style="padding: 5px">
                             <td></td>
