@@ -49,14 +49,45 @@ class Authmin_model extends CI_Model {
 		}
 	}
 
-	public function agregatcek($bulan, $tahun) {
-		$this->db->select('*');
-		$this->db->from('agregat');
-		$this->db->where('bulan', $bulan);
-		$this->db->where('tahun', $tahun);
+	public function getsumdemand($bulan, $tahun, $kode) {
+		$this->db->select('avg(demand) as jumlahdemand, avg(leadtime) as jumlahlead, avg(cost) as jumlahcost');
+		$this->db->from('demandharian');
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(tanggal)', $tahun);
+		$this->db->where('kodebarang', $kode);
 		$query = $this->db->get();
-		if ($query->num_rows() > 0) {
-			return true;
+		if ($query && $query->num_rows() == 1) {
+			return $query->result();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getdemandcost($bulan, $tahun, $kode) {
+		$this->db->select('sum(demand) as jumlahdemand, avg(cost) as jumlahcost');
+		$this->db->from('demandharian');
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(tanggal)', $tahun);
+		$this->db->where('kodebarang', $kode);
+		$query = $this->db->get();
+		if ($query && $query->num_rows() == 1) {
+			return $query->result();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getdemandlead($bulan, $tahun, $kode) {
+		$this->db->select('stddev(demand) as sd, stddev(leadtime) as sl');
+		$this->db->from('demandharian');
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->where('year(tanggal)', $tahun);
+		$this->db->where('kodebarang', $kode);
+		$query = $this->db->get();
+		if ($query && $query->num_rows() == 1) {
+			return $query->result();
 		}
 		else{
 			return false;
@@ -67,6 +98,48 @@ class Authmin_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('agregat');
 		$this->db->order_by('id');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getlogharian() {
+		$this->db->select('*');
+		$this->db->from('demandharian');
+		$this->db->order_by('kodebarang');
+		$this->db->order_by('tanggal');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getabcsys() {
+		$query1 = "SET @sum := 0;";
+        $this->db->query($query1);
+		$this->db->select('bulan, tahun, kodebarang, cost, demandbulan, namabarang, demandcost, (@sum := @sum + demandcost) AS CumulativeSum, (@sum/(SELECT sum(demandcost) FROM abcsys)*100) as prosentase');
+		$this->db->from('abcsys');
+		$this->db->order_by('demandcost');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getrop() {
+		$this->db->select('*');
+		$this->db->from('abcrop');
+		$this->db->order_by('kodebarang');
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
@@ -118,6 +191,50 @@ class Authmin_model extends CI_Model {
 		}
 	}
 
+	public function agregatcek($bulan, $tahun) {
+		$this->db->select('*');
+		$this->db->from('agregat');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function cekrop($bulan, $tahun, $kode) {
+		$this->db->select('*');
+		$this->db->from('abcrop');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$this->db->where('kodebarang', $kode);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function cekabc($bulan, $tahun, $kode) {
+		$this->db->select('*');
+		$this->db->from('abcsys');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$this->db->where('kodebarang', $kode);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	public function deleteData($namaTabel, $where, $data) {
 		$this->db->where($where, $data);
 		$this->db->delete($namaTabel);
@@ -140,5 +257,15 @@ class Authmin_model extends CI_Model {
 		$this->db->where($where3, $wheredata3);
 		$this->db->update($namaTabel, $data);
 	}
+
+	function std_deviation($arr){
+    $arrsize=count($arr);
+    $mu=array_sum($arr)/$arr_size;
+    $ans=0;
+    foreach($arr as $elem){
+        $ans+=pow(($elem-$mu),2);
+    }
+    return $ans/$arr_size;
+}
 }
 ?>

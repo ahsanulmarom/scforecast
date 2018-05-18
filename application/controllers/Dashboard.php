@@ -83,6 +83,119 @@ class Dashboard extends CI_Controller {
 		$this->load->view('headfoot/footer');
 	}
 
+	public function logharian() {
+		$data['title'] = 'Log Demand Harian';
+		$datalog = array(
+			'log' => $this->Authmin_model->getlogharian(),
+			'title' => 'Log Demand Harian');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('loghariantabel', $datalog);
+		$this->load->view('headfoot/footer');
+	}
+
+	public function classification() {
+		$data['title'] = 'ABC Classification';
+		$datalog = array(
+			'log' => $this->Authmin_model->getabcsys(),
+			'title' => 'ABC Classification');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('abcclass', $datalog);
+		$this->load->view('headfoot/footer');
+	}
+
+	public function rop() {
+		$data['title'] = 'Reorder Point';
+		$datarop = array(
+			'rop' => $this->Authmin_model->getrop(),
+			'title' => 'Reorder Point');
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('rop', $datarop);
+		$this->load->view('headfoot/footer');
+	}
+
+	public function formdemand() {
+		$data['title'] = 'Input Demand';
+		$this->load->view('headfoot/sider',$data);
+		$this->load->view('headfoot/header');
+		$this->load->view('demands');
+		$this->load->view('headfoot/footer');
+	}
+
+	public function insertdemand() {
+		$tanggal = $this->input->post('tanggal');
+		$kode = $this->input->post('kodebarang');
+		$namabarang = $this->input->post('namabarang');
+		$demand = $this->input->post('demand');
+		$lead = $this->input->post('leadtime');
+		$cost = $this->input->post('cost');
+		$time = strtotime($tanggal);
+		$bulan = date("m",$time);
+		$tahun = date("Y",$time);
+
+		$datainsert = array(
+					'tanggal' => $tanggal,
+					'kodebarang' => $kode,
+					'namabarang' => $namabarang,
+					'demand' => $demand,
+					'leadtime' => $lead,
+					'cost' => $cost);
+		$insert = $this->Authmin_model->insertData('demandharian', $datainsert);
+		$sumdemand = $this->Authmin_model->getsumdemand($bulan, $tahun, $kode);
+		$demandcost = $this->Authmin_model->getdemandcost($bulan, $tahun, $kode);
+		$demandlead = $this->Authmin_model->getdemandlead($bulan, $tahun, $kode);
+		//echo $this->db->last_query();
+		$cekrop = $this->Authmin_model->cekrop($bulan,$tahun,$kode);
+		//echo $this->db->last_query();
+		$cekabc = $this->Authmin_model->cekabc($bulan,$tahun,$kode);
+
+		if ($insert) {
+			if ($cekrop) {
+				$dataupdaterop = array(
+					'demandbulan' => $sumdemand[0]->jumlahdemand,
+					'lead' => $sumdemand[0]->jumlahlead,
+					'costbulan' => $sumdemand[0]->jumlahcost,
+					'sd' => (double)$demandlead[0]->sd,
+					'sl' => (double)$demandlead[0]->sl);
+				$updaterop = $this->Authmin_model->updateData3('bulan', $bulan, 'tahun', $tahun, 'kodebarang', $kode, 'abcrop', $dataupdaterop);
+				echo $this->db->last_query();
+				} else {
+					$datainsertrop = array(
+						'bulan' => $bulan,
+						'tahun' => $tahun,
+						'kodebarang' => $kode,
+						'namabarang' => $namabarang,
+						'demandbulan' => $sumdemand[0]->jumlahdemand,
+						'lead' => $sumdemand[0]->jumlahlead,
+						'costbulan' => $sumdemand[0]->jumlahcost,
+						'sd' => $demandlead[0]->sd,
+						'sl' => $demandlead[0]->sl);
+				$insertrop = $this->Authmin_model->insertData('abcrop', $datainsertrop);
+				//echo $this->db->last_query();
+			}
+
+			if ($cekabc) {
+				$dataupdateabc = array(
+					'demandbulan' => $demandcost[0]->jumlahdemand,
+					'cost' => $demandcost[0]->jumlahcost,);
+				$updaterop = $this->Authmin_model->updateData3('bulan', $bulan, 'tahun', $tahun, 'kodebarang', $kode, 'abcsys', $dataupdateabc);
+				//echo $this->db->last_query();
+				} else {
+					$datainsertabc = array(
+						'bulan' => $bulan,
+						'tahun' => $tahun,
+						'kodebarang' => $kode,
+						'namabarang' => $namabarang,
+						'demandbulan' => $sumdemand[0]->jumlahdemand,
+						'cost' => $sumdemand[0]->jumlahcost);
+				$insertrop = $this->Authmin_model->insertData('abcsys', $datainsertabc);
+				//echo $this->db->last_query();
+			}
+		}
+	}
+
 	public function forecastnow() {
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');

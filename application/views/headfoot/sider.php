@@ -33,7 +33,30 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forecast Now!!!">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Form Demand">
+          <a class="nav-link" href="<?php echo base_url()?>Dashboard/formdemand">
+            <i class="fa fa-fw fa-list"></i>
+            <span class="nav-link-text">Form Demand</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Demand - Inventory">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-coffee"></i>
+            <span class="nav-link-text">Anlisa Demand-Inventory</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <li>
+              <a href="<?php echo base_url()?>Dashboard/logharian">Log Demand Harian</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>Dashboard/classification">ABC System Classification</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>Dashboard/rop">ROP Analysis</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forecast Now!!!">
           <a class="nav-link" href="<?php echo base_url()?>Dashboard/forecast">
             <i class="fa fa-fw fa-list"></i>
             <span class="nav-link-text">Forecast Now!!!</span>
