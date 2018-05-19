@@ -121,12 +121,15 @@ class Authmin_model extends CI_Model {
 		}
 	}
 
-	public function getabcsys() {
+	public function getabcsys($bulan, $tahun) {
 		$query1 = "SET @sum := 0;";
         $this->db->query($query1);
-		$this->db->select('bulan, tahun, kodebarang, cost, demandbulan, namabarang, demandcost, (@sum := @sum + demandcost) AS CumulativeSum, (@sum/(SELECT sum(demandcost) FROM abcsys)*100) as prosentase');
+		$this->db->select('bulan, tahun, kodebarang, cost, demandbulan, namabarang, demandcost, (@sum := @sum + demandcost) AS CumulativeSum, 
+			(@sum/(SELECT sum(demandcost) FROM abcsys where bulan='.$bulan.' and tahun='.$tahun.')*100) as prosentase');
 		$this->db->from('abcsys');
-		$this->db->order_by('demandcost');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
+		$this->db->order_by('demandcost', 'desc');
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
@@ -136,9 +139,11 @@ class Authmin_model extends CI_Model {
 		}
 	}
 
-	public function getrop() {
+	public function getrop($bulan, $tahun) {
 		$this->db->select('*');
 		$this->db->from('abcrop');
+		$this->db->where('bulan', $bulan);
+		$this->db->where('tahun', $tahun);
 		$this->db->order_by('kodebarang');
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
@@ -227,7 +232,21 @@ class Authmin_model extends CI_Model {
 		$this->db->where('tahun', $tahun);
 		$this->db->where('kodebarang', $kode);
 		$query = $this->db->get();
-		if ($query->num_rows() > 0) {
+		if ($query && $query->num_rows() == 1) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function ceklog($tanggal, $kode) {
+		$this->db->select('*');
+		$this->db->from('demandharian');
+		$this->db->where('tanggal', $tanggal);
+		$this->db->where('kodebarang', $kode);
+		$query = $this->db->get();
+		if ($query && $query->num_rows() == 1) {
 			return true;
 		}
 		else{

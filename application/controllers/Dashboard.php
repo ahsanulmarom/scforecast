@@ -94,10 +94,10 @@ class Dashboard extends CI_Controller {
 		$this->load->view('headfoot/footer');
 	}
 
-	public function classification() {
+	public function classification($bulan, $tahun) {
 		$data['title'] = 'ABC Classification';
 		$datalog = array(
-			'log' => $this->Authmin_model->getabcsys(),
+			'log' => $this->Authmin_model->getabcsys($bulan, $tahun),
 			'title' => 'ABC Classification');
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
@@ -105,15 +105,27 @@ class Dashboard extends CI_Controller {
 		$this->load->view('headfoot/footer');
 	}
 
-	public function rop() {
+	public function rop($bulan, $tahun) {
 		$data['title'] = 'Reorder Point';
 		$datarop = array(
-			'rop' => $this->Authmin_model->getrop(),
+			'rop' => $this->Authmin_model->getrop($bulan, $tahun),
 			'title' => 'Reorder Point');
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
 		$this->load->view('rop', $datarop);
 		$this->load->view('headfoot/footer');
+	}
+
+	public function tampilrop() {
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		redirect("Dashboard/rop/".$bulan."/".$tahun);
+	}
+
+	public function tampilabc() {
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		redirect("Dashboard/classification/".$bulan."/".$tahun);
 	}
 
 	public function formdemand() {
@@ -134,7 +146,12 @@ class Dashboard extends CI_Controller {
 		$time = strtotime($tanggal);
 		$bulan = date("m",$time);
 		$tahun = date("Y",$time);
+		$ceklog = $this->Authmin_model->ceklog($tanggal, $kode);
 
+		if ($ceklog) {
+			$this->session->set_flashdata('error','Data sudah diinput sebelumnya');
+			redirect('Dashboard/formdemand');
+		} else {
 		$datainsert = array(
 					'tanggal' => $tanggal,
 					'kodebarang' => $kode,
@@ -146,11 +163,9 @@ class Dashboard extends CI_Controller {
 		$sumdemand = $this->Authmin_model->getsumdemand($bulan, $tahun, $kode);
 		$demandcost = $this->Authmin_model->getdemandcost($bulan, $tahun, $kode);
 		$demandlead = $this->Authmin_model->getdemandlead($bulan, $tahun, $kode);
-		//echo $this->db->last_query();
 		$cekrop = $this->Authmin_model->cekrop($bulan,$tahun,$kode);
-		//echo $this->db->last_query();
 		$cekabc = $this->Authmin_model->cekabc($bulan,$tahun,$kode);
-
+		
 		if ($insert) {
 			if ($cekrop) {
 				$dataupdaterop = array(
@@ -160,7 +175,6 @@ class Dashboard extends CI_Controller {
 					'sd' => (double)$demandlead[0]->sd,
 					'sl' => (double)$demandlead[0]->sl);
 				$updaterop = $this->Authmin_model->updateData3('bulan', $bulan, 'tahun', $tahun, 'kodebarang', $kode, 'abcrop', $dataupdaterop);
-				echo $this->db->last_query();
 				} else {
 					$datainsertrop = array(
 						'bulan' => $bulan,
@@ -182,6 +196,8 @@ class Dashboard extends CI_Controller {
 					'cost' => $demandcost[0]->jumlahcost,);
 				$updaterop = $this->Authmin_model->updateData3('bulan', $bulan, 'tahun', $tahun, 'kodebarang', $kode, 'abcsys', $dataupdateabc);
 				//echo $this->db->last_query();
+				$this->session->set_flashdata('success', 'Data berhasil ditambahkan');
+				redirect('Dashboard/logharian');
 				} else {
 					$datainsertabc = array(
 						'bulan' => $bulan,
@@ -192,7 +208,13 @@ class Dashboard extends CI_Controller {
 						'cost' => $sumdemand[0]->jumlahcost);
 				$insertrop = $this->Authmin_model->insertData('abcsys', $datainsertabc);
 				//echo $this->db->last_query();
+				$this->session->set_flashdata('success', 'Data berhasil ditambahkan');
+				redirect('Dashboard/logharian');
 			}
+		} else {
+			$this->session->set_flashdata('error','Gagal Menambahkan Data');
+			redirect('Dashboard/formdemand');
+		}
 		}
 	}
 

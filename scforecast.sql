@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Mei 2018 pada 17.49
+-- Generation Time: 19 Mei 2018 pada 04.27
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -49,8 +49,10 @@ CREATE TABLE `abcrop` (
 --
 
 INSERT INTO `abcrop` (`id`, `bulan`, `tahun`, `kodebarang`, `namabarang`, `demandbulan`, `costbulan`, `spend`, `lead`, `sd`, `sl`, `tetha`, `z`, `ss`, `ROP`) VALUES
-(9, 5, 2018, 'A001', 'Kursi', 3, 123750, 371250, 7, 1.2247, 0, 8.5729, 1.645, 14, 35),
-(10, 5, 2018, 'A002', 'Meja', 2, 21500, 43000, 9, 1, 1, 9.219544457292887, 1.645, 15, 33);
+(9, 5, 2018, 'A001', 'Kursi', 2.8, 102640, 287392, 7.6, 1.1662, 1.2, 9.478633663899032, 1.645, 16, 37),
+(10, 5, 2018, 'A002', 'Meja', 2, 21500, 43000, 9, 1, 1, 9.219544457292887, 1.645, 15, 33),
+(14, 6, 2018, 'A001', 'Kursi', 3, 16000, 48000, 14.5, 2, 5.5, 33.36540124140574, 1.645, 55, 98),
+(15, 6, 2018, 'A002', 'Meja', 3, 20000, 60000, 2, 0, 0, 0, 1.645, 0, 6);
 
 -- --------------------------------------------------------
 
@@ -74,8 +76,10 @@ CREATE TABLE `abcsys` (
 --
 
 INSERT INTO `abcsys` (`id`, `bulan`, `tahun`, `kodebarang`, `namabarang`, `demandbulan`, `cost`, `demandcost`) VALUES
-(2, 5, 2018, 'A001', 'Kursi', 12, 123750, 1485000),
-(3, 5, 2018, 'A002', 'Meja', 4, 21500, 86000);
+(2, 5, 2018, 'A001', 'Kursi', 14, 102640, 1436960),
+(3, 5, 2018, 'A002', 'Meja', 4, 21500, 86000),
+(7, 6, 2018, 'A001', 'Kursi', 6, 16000, 96000),
+(8, 6, 2018, 'A002', 'Meja', 3, 20000, 60000);
 
 -- --------------------------------------------------------
 
@@ -152,7 +156,10 @@ INSERT INTO `demandharian` (`id`, `tanggal`, `kodebarang`, `namabarang`, `demand
 (36, '2018-05-19', 'A001', 'Kursi', 5, 7, 125000),
 (37, '2018-05-20', 'A001', 'Kursi', 2, 7, 120000),
 (38, '2018-05-21', 'A001', 'Kursi', 3, 7, 130000),
-(39, '2018-05-22', 'A002', 'Meja', 3, 10, 13000);
+(39, '2018-05-22', 'A002', 'Meja', 3, 10, 13000),
+(51, '2018-06-04', 'A001', 'Kursi', 1, 20, 2000),
+(52, '2018-06-06', 'A001', 'Kursi', 5, 9, 30000),
+(53, '2018-06-03', 'A002', 'Meja', 3, 2, 20000);
 
 -- --------------------------------------------------------
 
@@ -235,12 +242,12 @@ ALTER TABLE `forecast`
 -- AUTO_INCREMENT for table `abcrop`
 --
 ALTER TABLE `abcrop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `abcsys`
 --
 ALTER TABLE `abcsys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `admin`
 --
@@ -255,7 +262,7 @@ ALTER TABLE `agregat`
 -- AUTO_INCREMENT for table `demandharian`
 --
 ALTER TABLE `demandharian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `forecast`
 --

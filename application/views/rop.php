@@ -11,6 +11,20 @@
                 <strong>Success!</strong> '.$this->session->flashdata('success').'.
               </div>';
             } ?>
+            <form method="POST" action="<?php echo site_url('Dashboard/tampilrop') ?>"enctype="multipart/form-data">
+                        <table style="font-size: 12px" width="100%">
+                          <tr>
+                            <td style="padding: 5px">Pilih Bulan dan Tahun</td>
+                            <td style="padding: 5px">
+                                <input class="form-control" type="number" min=1 max=12 name="bulan" placeholder="Bulan dalam angka (Januari = 1)" required/>
+                              </td>
+                              <td style="padding: 5px">
+                                <input class="form-control" type="month" name="tahun" placeholder="Tuliskan tahun YYYY, misal 2017" required/>
+                              </td>
+                              <td style="padding: 5px" colspan="1"><input class="btn btn-primary" type="submit" value="Display" /></td>
+                          </tr>
+                        </table>
+                      </form>
           </br>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>

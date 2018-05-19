@@ -42,21 +42,21 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Demand - Inventory">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-coffee"></i>
-            <span class="nav-link-text">Anlisa Demand-Inventory</span>
+            <span class="nav-link-text">Analisa Demand-Inventory</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
             <li>
               <a href="<?php echo base_url()?>Dashboard/logharian">Log Demand Harian</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>Dashboard/classification">ABC System Classification</a>
+              <a href="<?php echo base_url()?>Dashboard/classification/0/0">ABC System Classification</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>Dashboard/rop">ROP Analysis</a>
+              <a href="<?php echo base_url()?>Dashboard/rop/0/0">ROP Analysis</a>
             </li>
           </ul>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forecast Now!!!">
+        <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Forecast Now!!!">
           <a class="nav-link" href="<?php echo base_url()?>Dashboard/forecast">
             <i class="fa fa-fw fa-list"></i>
             <span class="nav-link-text">Forecast Now!!!</span>
@@ -84,7 +84,7 @@
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Jumlah Pegawai</span>
           </a>
-        </li>
+        </li> -->
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
