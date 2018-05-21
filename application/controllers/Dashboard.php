@@ -99,6 +99,7 @@ class Dashboard extends CI_Controller {
 		$datalog = array(
 			'log' => $this->Authmin_model->getabcsys($bulan, $tahun),
 			'title' => 'ABC Classification');
+		//echo $this->db->last_query();
 		$this->load->view('headfoot/sider',$data);
 		$this->load->view('headfoot/header');
 		$this->load->view('abcclass', $datalog);

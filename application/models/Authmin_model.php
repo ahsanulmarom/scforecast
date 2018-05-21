@@ -124,14 +124,17 @@ class Authmin_model extends CI_Model {
 	public function getabcsys($bulan, $tahun) {
 		$query1 = "SET @sum := 0;";
         $this->db->query($query1);
-		$this->db->select('bulan, tahun, kodebarang, cost, demandbulan, namabarang, demandcost, (@sum := @sum + demandcost) AS CumulativeSum, 
-			(@sum/(SELECT sum(demandcost) FROM abcsys where bulan='.$bulan.' and tahun='.$tahun.')*100) as prosentase');
+		$this->db->select('rop, abcsys.bulan, abcsys.tahun, abcsys.kodebarang, cost, abcsys.demandbulan, abcsys.namabarang, abcsys.demandcost, (@sum := @sum + abcsys.demandcost) AS CumulativeSum, 
+			(@sum/(SELECT sum(abcsys.demandcost) FROM abcsys where abcsys.bulan='.$bulan.' and abcsys.tahun='.$tahun.')*100) as prosentase');
 		$this->db->from('abcsys');
-		$this->db->where('bulan', $bulan);
-		$this->db->where('tahun', $tahun);
+		$this->db->join('abcrop', 'abcrop.kodebarang = abcsys.kodebarang');
+		$this->db->where('abcsys.bulan', $bulan);
+		$this->db->where('abcsys.tahun', $tahun);
+		$this->db->where('abcrop.bulan', $bulan);
+		$this->db->where('abcrop.tahun', $tahun);
 		$this->db->order_by('demandcost', 'desc');
 		$query = $this->db->get();
-		if ($query->num_rows() > 0) {
+		if ($query && $query->num_rows() > 0) {
 			return $query->result_array();
 		}
 		else{

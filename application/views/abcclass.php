@@ -38,6 +38,7 @@
                   <th><center>Cumulative</center></th>
                   <th><center>Prosentase</center></th>
                   <th><center>Tipe</center></th>
+                  <th><center>ROP</center></th>
                 </tr>
               </thead>
               <tbody>
@@ -88,6 +89,7 @@
                     echo "C";
                   }
                   ?></td>
+                  <td><?php echo $d['rop']; ?></td>
                 </tr>
                 <?php }
               }?>
