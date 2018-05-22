@@ -1,5 +1,4 @@
      <!-- Icon Cards-->
-     <h1>Ini isi apa ya saya bingung</h1>
      <!--
        <div class="row">
 

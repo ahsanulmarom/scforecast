@@ -38,7 +38,7 @@
                   <th><center>Cumulative</center></th>
                   <th><center>Prosentase</center></th>
                   <th><center>Tipe</center></th>
-                  <th><center>ROP</center></th>
+                  <!--<th><center>ROP</center></th>-->
                 </tr>
               </thead>
               <tbody>
@@ -81,15 +81,15 @@
                   <td><?php echo $d['CumulativeSum']; ?></td>
                   <td><?php echo $d['prosentase'] . " %"; ?></td>
                   <td><?php 
-                  if($d['prosentase'] < 80) {
+                  if($d['prosentase'] < 50) {
                     echo "A";
-                  } else if($d['prosentase'] < 95) {
+                  } else if($d['prosentase'] < 80) {
                     echo "B";
                   } else {
                     echo "C";
                   }
                   ?></td>
-                  <td><?php echo $d['rop']; ?></td>
+                  <!--<td><?php echo $d['rop']; ?></td> -->
                 </tr>
                 <?php }
               }?>
