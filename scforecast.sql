@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2018 at 08:16 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: 22 Mei 2018 pada 16.37
+-- Versi Server: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `abcrop`
+-- Struktur dari tabel `abcrop`
 --
 
 CREATE TABLE `abcrop` (
@@ -40,63 +38,63 @@ CREATE TABLE `abcrop` (
   `lead` double DEFAULT NULL,
   `sd` double DEFAULT NULL,
   `sl` double DEFAULT NULL,
-  `tetha` double AS (sqrt((power((demandbulan),2)*power(sl,2))+power(lead,2)*power(sd,2))) VIRTUAL,
+  `tetha` double AS (sqrt((power((demandbulan),2)*power(sl,2))+lead*power(sd,2))) VIRTUAL,
   `z` double NOT NULL DEFAULT '1.645',
-  `ss` int(11) AS (z*(sqrt((power((demandbulan),2)*power(sl,2))+power(lead,2)*power(sd,2)))) VIRTUAL,
-  `ROP` int(11) AS ((demandbulan)*lead+(z*(sqrt((power((demandbulan),2)*power(sl,2))+power(lead,2)*power(sd,2))))) VIRTUAL
+  `ss` int(11) AS (z*(sqrt((power((demandbulan),2)*power(sl,2))+lead*power(sd,2)))) VIRTUAL,
+  `ROP` int(11) AS (((demandbulan)*lead)+(z*(sqrt((power((demandbulan),2)*power(sl,2))+lead*power(sd,2))))) VIRTUAL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `abcrop`
+-- Dumping data untuk tabel `abcrop`
 --
 
 INSERT INTO `abcrop` (`id`, `bulan`, `tahun`, `kodebarang`, `namabarang`, `demandbulan`, `costbulan`, `spend`, `lead`, `sd`, `sl`, `tetha`, `z`, `ss`, `ROP`) VALUES
-(9, 5, 2018, 'A001', 'Kursi', 2.8, 102640, 287392, 7.6, 1.1662, 1.2, 9.478633663899032, 1.645, 16, 37),
-(10, 5, 2018, 'A002', 'Meja', 2, 21500, 43000, 9, 1, 1, 9.219544457292887, 1.645, 15, 33),
-(14, 6, 2018, 'A001', 'Kursi', 3, 16000, 48000, 14.5, 2, 5.5, 33.36540124140574, 1.645, 55, 98),
+(9, 5, 2018, 'A001', 'Kursi', 2.8, 102640, 287392, 7.6, 1.1662, 1.2, 4.650351658100707, 1.645, 8, 29),
+(10, 5, 2018, 'A002', 'Meja', 2, 21500, 43000, 9, 1, 1, 3.605551275463989, 1.645, 6, 24),
+(14, 6, 2018, 'A001', 'Kursi', 3, 16000, 48000, 14.5, 2, 5.5, 18.172781845386247, 1.645, 30, 73),
 (15, 6, 2018, 'A002', 'Meja', 3, 20000, 60000, 2, 0, 0, 0, 1.645, 0, 6),
-(16, 1, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 7, 1.645, 12, 26),
+(16, 1, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 2.6457513110645907, 1.645, 4, 18),
 (17, 1, 2017, 'B004', 'Meja Makan', 1, 3000000, 3000000, 9, 0, 0, 0, 1.645, 0, 9),
-(18, 1, 2017, 'A001', 'Kursi Tamu', 1.3333, 1200000, 1599960, 5, 0.4714, 0, 2.3569999999999998, 1.645, 4, 11),
-(19, 1, 2017, 'A004', 'Kursi Kerja', 1.4, 1100000, 1540000, 4, 0.4899, 0, 1.9596, 1.645, 3, 9),
-(20, 1, 2017, 'A003', 'Lemari Sliding 3 Pintu', 2.3333, 7500000, 17499750, 11, 0.9428, 0, 10.370800000000001, 1.645, 17, 43),
-(21, 1, 2017, 'B002', 'Lemari Pakaian', 2, 4650000, 9300000, 9, 1, 0, 9, 1.645, 15, 33),
-(22, 1, 2017, 'B001', 'Buffet', 2, 5150000, 10300000, 8, 0.8165, 0, 6.532, 1.645, 11, 27),
-(23, 1, 2017, 'A005', 'Rak Buku', 1.3333, 3400000, 4533220, 6, 0.4714, 0, 2.8284, 1.645, 5, 13),
+(18, 1, 2017, 'A001', 'Kursi Tamu', 1.3333, 1200000, 1599960, 5, 0.4714, 0, 1.054082444593401, 1.645, 2, 8),
+(19, 1, 2017, 'A004', 'Kursi Kerja', 1.4, 1100000, 1540000, 4, 0.4899, 0, 0.9798, 1.645, 2, 7),
+(20, 1, 2017, 'A003', 'Lemari Sliding 3 Pintu', 2.3333, 7500000, 17499750, 11, 0.9428, 0, 3.126913852347071, 1.645, 5, 31),
+(21, 1, 2017, 'B002', 'Lemari Pakaian', 2, 4650000, 9300000, 9, 1, 0, 3, 1.645, 5, 23),
+(22, 1, 2017, 'B001', 'Buffet', 2, 5150000, 10300000, 8, 0.8165, 0, 2.309410747355264, 1.645, 4, 20),
+(23, 1, 2017, 'A005', 'Rak Buku', 1.3333, 3400000, 4533220, 6, 0.4714, 0, 1.1546894647479902, 1.645, 2, 10),
 (24, 1, 2017, 'A006', 'Kursi Cafe', 1, 750000, 750000, 4, 0, 0, 0, 1.645, 0, 4),
 (25, 1, 2017, 'C002', 'Meja Rias', 3, 4750000, 14250000, 10, 0, 0, 0, 1.645, 0, 30),
 (26, 1, 2017, 'B003', 'Meja Kerja', 3, 2000000, 6000000, 10, 0, 0, 0, 1.645, 0, 30),
 (27, 2, 2017, 'C003', 'Sofa', 2, 6800000, 13600000, 11, 0, 0, 0, 1.645, 0, 22),
-(28, 2, 2017, 'A001', 'Kursi Tamu', 1.3333, 1200000, 1599960, 5, 0.4714, 0, 2.3569999999999998, 1.645, 4, 11),
-(29, 2, 2017, 'B001', 'Buffet', 2, 5150000, 10300000, 8, 1, 0, 8, 1.645, 13, 29),
-(30, 2, 2017, 'A003', 'Lemari Sliding 3 Pintu', 1.6667, 7500000, 12500250, 11, 0.9428, 0, 10.370800000000001, 1.645, 17, 35),
+(28, 2, 2017, 'A001', 'Kursi Tamu', 1.3333, 1200000, 1599960, 5, 0.4714, 0, 1.054082444593401, 1.645, 2, 8),
+(29, 2, 2017, 'B001', 'Buffet', 2, 5150000, 10300000, 8, 1, 0, 2.8284271247461903, 1.645, 5, 21),
+(30, 2, 2017, 'A003', 'Lemari Sliding 3 Pintu', 1.6667, 7500000, 12500250, 11, 0.9428, 0, 3.126913852347071, 1.645, 5, 23),
 (31, 2, 2017, 'C004', 'Kursi Goyang', 1, 2200000, 2200000, 6, 0, 0, 0, 1.645, 0, 6),
-(32, 2, 2017, 'B003', 'Meja Kerja', 2.3333, 2000000, 4666600, 10, 0.9428, 0, 9.427999999999999, 1.645, 16, 39),
+(32, 2, 2017, 'B003', 'Meja Kerja', 2.3333, 2000000, 4666600, 10, 0.9428, 0, 2.981395378006748, 1.645, 5, 28),
 (33, 2, 2017, 'A006', 'Kursi Cafe', 2, 750000, 1500000, 4, 0, 0, 0, 1.645, 0, 8),
 (34, 2, 2017, 'C001', 'Nakas', 2, 2250000, 4500000, 5, 0, 0, 0, 1.645, 0, 10),
-(35, 2, 2017, 'B002', 'Lemari Pakaian', 2.5, 4650000, 11625000, 9, 0.5, 0, 4.5, 1.645, 7, 30),
-(36, 2, 2017, 'A005', 'Rak Buku', 2.5, 3400000, 8500000, 6, 0.5, 0, 3, 1.645, 5, 20),
-(37, 2, 2017, 'A004', 'Kursi Kerja', 2.5, 1100000, 2750000, 4, 0.5, 0, 2, 1.645, 3, 13),
-(38, 2, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 7, 1.645, 12, 26),
+(35, 2, 2017, 'B002', 'Lemari Pakaian', 2.5, 4650000, 11625000, 9, 0.5, 0, 1.5, 1.645, 2, 25),
+(36, 2, 2017, 'A005', 'Rak Buku', 2.5, 3400000, 8500000, 6, 0.5, 0, 1.224744871391589, 1.645, 2, 17),
+(37, 2, 2017, 'A004', 'Kursi Kerja', 2.5, 1100000, 2750000, 4, 0.5, 0, 1, 1.645, 2, 12),
+(38, 2, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 2.6457513110645907, 1.645, 4, 18),
 (39, 2, 2017, 'C002', 'Meja Rias', 2, 4750000, 9500000, 10, 0, 0, 0, 1.645, 0, 20),
-(40, 2, 2017, 'B004', 'Meja Makan', 2, 3000000, 6000000, 9, 1, 0, 9, 1.645, 15, 33),
-(41, 3, 2017, 'A001', 'Kursi Tamu', 1.75, 1200000, 2100000, 5, 0.8292, 0, 4.146, 1.645, 7, 16),
+(40, 2, 2017, 'B004', 'Meja Makan', 2, 3000000, 6000000, 9, 1, 0, 3, 1.645, 5, 23),
+(41, 3, 2017, 'A001', 'Kursi Tamu', 1.75, 1200000, 2100000, 5, 0.8292, 0, 1.8541475669428258, 1.645, 3, 12),
 (42, 3, 2017, 'B002', 'Lemari Pakaian', 3, 4650000, 13950000, 9, 0, 0, 0, 1.645, 0, 27),
-(43, 3, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 7, 1.645, 12, 26),
-(44, 3, 2017, 'A004', 'Kursi Kerja', 2, 1100000, 2200000, 4, 0.8165, 0, 3.266, 1.645, 5, 13),
+(43, 3, 2017, 'A002', 'Dipan', 2, 3250000, 6500000, 7, 1, 0, 2.6457513110645907, 1.645, 4, 18),
+(44, 3, 2017, 'A004', 'Kursi Kerja', 2, 1100000, 2200000, 4, 0.8165, 0, 1.633, 1.645, 3, 11),
 (45, 3, 2017, 'B001', 'Buffet', 3, 5150000, 15450000, 8, 0, 0, 0, 1.645, 0, 24),
-(46, 3, 2017, 'A003', 'Lemari Sliding 3 Pintu', 2.5, 7500000, 18750000, 11, 0.5, 0, 5.5, 1.645, 9, 37),
+(46, 3, 2017, 'A003', 'Lemari Sliding 3 Pintu', 2.5, 7500000, 18750000, 11, 0.5, 0, 1.6583123951777, 1.645, 3, 30),
 (47, 3, 2017, 'B003', 'Meja Kerja', 2, 2000000, 4000000, 10, 0, 0, 0, 1.645, 0, 20),
 (48, 3, 2017, 'C005', 'Kitchen Set Minimalis', 1, 4750000, 4750000, 8, 0, 0, 0, 1.645, 0, 8),
 (49, 3, 2017, 'A005', 'Rak Buku', 2, 3400000, 6800000, 6, 0, 0, 0, 1.645, 0, 12),
-(50, 3, 2017, 'A006', 'Kursi Cafe', 2, 750000, 1500000, 4, 1, 0, 4, 1.645, 7, 15),
+(50, 3, 2017, 'A006', 'Kursi Cafe', 2, 750000, 1500000, 4, 1, 0, 2, 1.645, 3, 11),
 (51, 3, 2017, 'B004', 'Meja Makan', 3, 3000000, 9000000, 5, 0, 0, 0, 1.645, 0, 15),
 (52, 3, 2017, 'C006', 'Keranjang Air Mineral Gelas', 1, 225000, 225000, 3, 0, 0, 0, 1.645, 0, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `abcsys`
+-- Struktur dari tabel `abcsys`
 --
 
 CREATE TABLE `abcsys` (
@@ -111,7 +109,7 @@ CREATE TABLE `abcsys` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `abcsys`
+-- Dumping data untuk tabel `abcsys`
 --
 
 INSERT INTO `abcsys` (`id`, `bulan`, `tahun`, `kodebarang`, `namabarang`, `demandbulan`, `cost`, `demandcost`) VALUES
@@ -160,7 +158,7 @@ INSERT INTO `abcsys` (`id`, `bulan`, `tahun`, `kodebarang`, `namabarang`, `deman
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
@@ -171,7 +169,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `namaAdmin`) VALUES
@@ -180,7 +178,7 @@ INSERT INTO `admin` (`id`, `username`, `password`, `namaAdmin`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agregat`
+-- Struktur dari tabel `agregat`
 --
 
 CREATE TABLE `agregat` (
@@ -194,7 +192,7 @@ CREATE TABLE `agregat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `agregat`
+-- Dumping data untuk tabel `agregat`
 --
 
 INSERT INTO `agregat` (`id`, `bulan`, `tahun`, `forecasting`, `hprod`, `hpekerja`, `npekerja`) VALUES
@@ -209,7 +207,7 @@ INSERT INTO `agregat` (`id`, `bulan`, `tahun`, `forecasting`, `hprod`, `hpekerja
 -- --------------------------------------------------------
 
 --
--- Table structure for table `demandharian`
+-- Struktur dari tabel `demandharian`
 --
 
 CREATE TABLE `demandharian` (
@@ -223,7 +221,7 @@ CREATE TABLE `demandharian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `demandharian`
+-- Dumping data untuk tabel `demandharian`
 --
 
 INSERT INTO `demandharian` (`id`, `tanggal`, `kodebarang`, `namabarang`, `demand`, `leadtime`, `cost`) VALUES
@@ -311,7 +309,7 @@ INSERT INTO `demandharian` (`id`, `tanggal`, `kodebarang`, `namabarang`, `demand
 -- --------------------------------------------------------
 
 --
--- Table structure for table `forecast`
+-- Struktur dari tabel `forecast`
 --
 
 CREATE TABLE `forecast` (
@@ -325,7 +323,7 @@ CREATE TABLE `forecast` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forecast`
+-- Dumping data untuk tabel `forecast`
 --
 
 INSERT INTO `forecast` (`id`, `bulan`, `tahun`, `demand`, `alfa`, `forecast`, `type`) VALUES
@@ -390,38 +388,31 @@ ALTER TABLE `forecast`
 --
 ALTER TABLE `abcrop`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
 --
 -- AUTO_INCREMENT for table `abcsys`
 --
 ALTER TABLE `abcsys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
 --
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `agregat`
 --
 ALTER TABLE `agregat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `demandharian`
 --
 ALTER TABLE `demandharian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
-
 --
 -- AUTO_INCREMENT for table `forecast`
 --
 ALTER TABLE `forecast`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
