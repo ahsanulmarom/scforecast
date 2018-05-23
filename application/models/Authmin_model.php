@@ -110,8 +110,8 @@ class Authmin_model extends CI_Model {
 	public function getlogharian() {
 		$this->db->select('*');
 		$this->db->from('demandharian');
-		$this->db->order_by('kodebarang');
 		$this->db->order_by('tanggal');
+		$this->db->order_by('kodebarang');
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) {
 			return $query->result_array();
